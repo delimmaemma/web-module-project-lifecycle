@@ -27,8 +27,8 @@ export default class App extends React.Component {
     axios.post(URL, {
       name: this.state.todoNameInput
     })
-      .then(() => {
-        this.fetchAllTodos()
+      .then(res => {
+        this.setState({...this.state, todos: this.state.todos.concat(res.data.data)})
         this.resetForm()
       })
       .catch(this.setError)
@@ -48,18 +48,9 @@ export default class App extends React.Component {
       })
       .catch(this.setError)
   } 
-  // Does the same thing as the code below.
 
   componentDidMount() {
     this.fetchAllTodos()
-    // fetch(URL)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     this.setState({ ...this.state, todos: data.data })
-    //   })
-    //   .catch(err => {
-    //     this.setState({...this.state, error: err.response.data.message})
-    //   })
   }
 
   render() {
